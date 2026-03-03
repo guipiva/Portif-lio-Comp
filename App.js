@@ -1,903 +1,338 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text, StyleSheet, ScrollView, Image, Linking, TouchableOpacity, useWindowDimensions, Modal, Pressable, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Linking,
+  TouchableOpacity,
+  useWindowDimensions,
+  Modal,
+  Pressable,
+  Alert,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// Paleta de Cores: Dark Theme com Roxo e Azul
+// ===== PALETA MODERNA =====
 const colors = {
-  bg: '#000000',
-  secondary: '#0F0F1F',
-  primary: '#7367F0',        // Roxo
-  accent: '#4FACFE',          // Azul
-  textPrimary: '#D1D5DB',    // Cinza Claro
-  textSecondary: '#9CA3AF',  // Cinza Médio
-  border: '#1F2937',         // Cinza Escuro
+  bg: '#0F172A',          // Azul grafite profundo
+  secondary: '#1E293B',   // Azul acinzentado elegante
+  primary: '#10B981',     // Verde esmeralda moderno
+  accent: '#22D3EE',      // Ciano suave vibrante
+  textPrimary: '#F8FAFC', // Branco suave
+  textSecondary: '#94A3B8',
+  border: '#334155',
 };
 
-// ========== HOME / HERO ==========
+// ================= HOME =================
 const Home = () => {
   const styles = useStyles();
-  const [selectedStat, setSelectedStat] = useState(null);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      {/* Hero Section with Gradient */}
-      <View style={styles.heroSection}>
-        <View style={styles.heroGradient}>
-          <View style={styles.heroContent}>
-            
-            <Text style={styles.nameText}>Thiago Henrique</Text>
-            <Text style={styles.professionText}>Desenvolvedor de Software & SQL Specialist</Text>
-            
-            <View style={styles.profileContainer}>
-              <Pressable onPress={() => Linking.openURL('https://github.com/thmn93')} accessibilityRole="link">
-                <Image 
-                  source={{ uri: 'https://github.com/thmn93.png' }} 
-                  style={styles.heroImage} 
-                />
-              </Pressable>
-            </View>
-
-            <View style={styles.statsContainer}>
-              <Pressable style={styles.statBox} onPress={() => Alert.alert('Semestre', 'Atualmente no 5º semestre do curso DSM na FATEC.') }>
-                <Text style={styles.statNumber}>5º</Text>
-                <Text style={styles.statLabel}>Semestre DSM</Text>
-              </Pressable>
-              <Pressable style={styles.statBox} onPress={() => Alert.alert('Experiência', 'Mais de 2 anos de experiência em suporte e desenvolvimento.') }>
-                <Text style={styles.statNumber}>+2</Text>
-                <Text style={styles.statLabel}>Anos Exp.</Text>
-              </Pressable>
-              <Pressable style={styles.statBox} onPress={() => Alert.alert('Tecnologias', 'Principais: SQL Server, React, Node.js, Python, React Native.') }>
-                <Text style={styles.statNumber}>8</Text>
-                <Text style={styles.statLabel}>Tecnologias</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </View>
-
-      {/* CTA Button */}
-      <View style={styles.ctaSection}>
-        <TouchableOpacity style={styles.ctaButton} onPress={() => Linking.openURL('https://github.com/thmn93')}>
-          <Ionicons name="logo-github" size={18} color="#FFFFFF" />
-          <Text style={styles.ctaButtonText}>Ver meu GitHub</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Quote Section */}
-      <View style={styles.quoteSection}>
-        <Text style={styles.quoteIcon}>💡</Text>
-        <Text style={styles.quoteText}>
-          "Na tecnologia, sou apenas um aprendiz, mas na resolução de problemas, sempre sou um pensador criativo."
+    <ScrollView style={styles.container}>
+      <View style={styles.hero}>
+        <Text style={styles.name}>Guilherme Piva</Text>
+        <Text style={styles.subtitle}>
+          Desenvolvedor em formação focado em Back-end
         </Text>
-        <Text style={styles.quoteAuthor}>— Thiago Henrique</Text>
-      </View>
 
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>© 2026 Thiago Henrique</Text>
-        <TouchableOpacity style={styles.contactButton} onPress={() => Linking.openURL('mailto:thiago@example.com')}>
-          <Text style={styles.contactButtonText}>Contato</Text>
+        <Pressable onPress={() => Linking.openURL('https://github.com/guipiva')}>
+        <Image
+          source={require('./assets/imagem-certa.jpeg')}
+          style={styles.avatar}
+        />
+        </Pressable>
+
+        <View style={styles.stats}>
+          <Pressable onPress={() => Alert.alert('Semestre', '5º semestre DSM')}>
+            <Text style={styles.statNumber}>5º</Text>
+            <Text style={styles.statLabel}>Semestre</Text>
+          </Pressable>
+
+          <Pressable onPress={() => Alert.alert('Experiência', '+2 anos estudando tecnologia')}>
+            <Text style={styles.statNumber}>+2</Text>
+            <Text style={styles.statLabel}>Anos</Text>
+          </Pressable>
+
+          <Pressable onPress={() => Alert.alert('Stack', 'React, Node, SQL Server, Python')}>
+            <Text style={styles.statNumber}>8+</Text>
+            <Text style={styles.statLabel}>Skills</Text>
+          </Pressable>
+        </View>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => Linking.openURL('https://github.com/guipiva')}
+        >
+          <Ionicons name="logo-github" size={18} color="#fff" />
+          <Text style={styles.buttonText}>Ver GitHub</Text>
         </TouchableOpacity>
       </View>
+
+      <Footer />
     </ScrollView>
   );
 };
 
-// ========== ABOUT ==========
+// ================= ABOUT =================
 const About = () => {
   const styles = useStyles();
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Sobre Mim</Text>
-        <View style={styles.sectionLine}></View>
-      </View>
-      
-      <View style={styles.aboutCard}>
-        <Image 
-          source={{ uri: 'https://github.com/thmn93.png' }} 
-          style={styles.aboutImage}
-          resizeMode="cover"
-        />
-        
-        <View style={styles.aboutContent}>
-          <Text style={styles.bodyText}>
-            Sou Thiago Henrique, desenvolvedor de software em formação com especialização em SQL. Apaixonado por resolver problemas complexos e criar soluções inovadoras.
-          </Text>
+    <ScrollView style={styles.container}>
+      <SectionTitle title="Sobre Mim" />
 
-          <View style={styles.infoCard}>
-            <Ionicons name="school" size={20} color={colors.accent} />
-            <View style={styles.infoText}>
-              <Text style={styles.infoTitle}>Formação</Text>
-              <Text style={styles.infoSubtitle}>5º semestre DSM - FATEC São José dos Campos</Text>
-            </View>
-          </View>
+      <View style={styles.card}>
+        <Text style={styles.text}>
+          Sou Guilherme Tobias Piva, estudante de Desenvolvimento de Software
+          Multiplataforma. Apaixonado por resolver problemas e criar soluções
+          eficientes.
+        </Text>
 
-          <View style={styles.infoCard}>
-            <Ionicons name="briefcase" size={20} color={colors.primary} />
-            <View style={styles.infoText}>
-              <Text style={styles.infoTitle}>Experiência na área</Text>
-              <Text style={styles.infoSubtitle}>Faktory Sistemas - Especialista em SQL</Text>
-            </View>
-          </View>
-
-          <View style={styles.infoCard}>
-            <Ionicons name="target" size={20} color={colors.accent} />
-            <View style={styles.infoText}>
-              <Text style={styles.infoTitle}>Objetivo</Text>
-              <Text style={styles.infoSubtitle}>Ser um dev Full-Stack de impacto</Text>
-            </View>
-          </View>
-        </View>
+        <Info icon="school" title="Formação" text="FATEC - 5º Semestre DSM" />
+        <Info icon="briefcase" title="Experiência" text="Projetos acadêmicos e pessoais" />
+        <Info icon="target" title="Objetivo" text="Tornar-me Back-end Sênior" />
       </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>© 2026 Thiago Henrique</Text>
-        <TouchableOpacity style={styles.contactButton} onPress={() => Linking.openURL('mailto:thiago@example.com')}>
-          <Text style={styles.contactButtonText}>Contato</Text>
-        </TouchableOpacity>
-      </View>
+      <Footer />
     </ScrollView>
   );
 };
 
-// ========== EXPERIENCE ==========
+// ================= EXPERIENCE =================
 const Experience = () => {
   const styles = useStyles();
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Experiência</Text>
-        <View style={styles.sectionLine}></View>
-      </View>
-      
-      {/* Current Job */}
-      <View style={styles.experienceCard}>
-        <View style={styles.cardBadgeContainer}>
-          <View style={styles.activeBadge}>
-            <Text style={styles.activeBadgeText}>Atual</Text>
-          </View>
-        </View>
-        
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>Faktory Sistemas</Text>
-          <Text style={styles.cardRole}>Especialista em SQL & Suporte Técnico</Text>
-          <View style={styles.divider}></View>
-          
-          <View style={styles.bulletContainer}>
-            <Text style={styles.bulletPoint}>✓ Resolução de chamados SQL Server</Text>
-            <Text style={styles.bulletPoint}>✓ Análise tributária e fluxos ERP</Text>
-            <Text style={styles.bulletPoint}>✓ Otimização de queries</Text>
-            <Text style={styles.bulletPoint}>✓ Automação NF-e</Text>
-          </View>
-        </View>
-      </View>
+    <ScrollView style={styles.container}>
+      <SectionTitle title="Experiência" />
 
-      {/* Previous Job */}
-      <View style={styles.experienceCard}>
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>Grand Hotel Royal</Text>
-          <Text style={styles.cardRole}>Analista Financeiro</Text>
-          <Text style={styles.periodText}>Mudança de unidade dentro da franquia2023 — 2024</Text>
-          <View style={styles.divider}></View>
-          
-          <View style={styles.bulletContainer}>
-            <Text style={styles.bulletPoint}>✓ Gestão de caixa</Text>
-            <Text style={styles.bulletPoint}>✓ Análise financeira</Text>
-            <Text style={styles.bulletPoint}>✓ Controladoria</Text>
-            <Text style={styles.bulletPoint}>✓ Responsável por processos de auditoria</Text>
-            <Text style={styles.bulletPoint}>✓ Gerenciamento e gestão do financeiro em geral</Text>
-          </View>
-        </View>
-      </View>
+      <ExperienceCard
+        title="Site de Doações (carita)"
+        role="Front-end developer"
+        period="2024-2025"
+        bullets={[
+          'Angular',
+          'Interface responsiva',
+        ]}
+      />
 
-      {/* Previous Job */}
-      <View style={styles.experienceCard}>
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitle}>Sorocaba Park Hotel</Text>
-          <Text style={styles.cardRole}>Analista Financeiro</Text>
-          <Text style={styles.periodText}>2015 — 2022</Text>
-          <View style={styles.divider}></View>
-          
-          <View style={styles.bulletContainer}>
-            <Text style={styles.bulletPoint}>✓ Gestão de caixa</Text>
-            <Text style={styles.bulletPoint}>✓ Análise financeira</Text>
-            <Text style={styles.bulletPoint}>✓ Controladoria</Text>
-            <Text style={styles.bulletPoint}>✓ Responsável por processos de auditoria</Text>
-            <Text style={styles.bulletPoint}>✓ Gerenciamento e gestão do financeiro em geral</Text>
-
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.footer}>
-          <Text style={styles.footerText}>© 2026 Thiago Henrique</Text>
-          <TouchableOpacity style={styles.contactButton} onPress={() => Linking.openURL('mailto:thiago@example.com')}>
-            <Text style={styles.contactButtonText}>Contato</Text>
-          </TouchableOpacity>
-      </View>
+      <Footer />
     </ScrollView>
   );
 };
 
-// ========== SKILLS ==========
+// ================= SKILLS =================
 const Skills = () => {
   const styles = useStyles();
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedSkill, setSelectedSkill] = useState(null);
+  const [selected, setSelected] = useState(null);
 
-  const techSkills = [
-    { name: 'SQL Server', desc: 'Banco de dados relacional utilizado para armazenar e consultar dados usando T-SQL.' },
-    { name: 'T-SQL', desc: 'Linguagem de consulta e programação para SQL Server: stored procedures, views e otimização.' },
-    { name: 'React', desc: 'Biblioteca para construir interfaces web reativas e componentes reutilizáveis.' },
-    { name: 'Node.js', desc: 'Runtime para executar JavaScript no servidor e criar APIs.' },
-    { name: 'Next.js', desc: 'Framework React para SSR e rotas simplificadas.' },
-    { name: 'JavaScript', desc: 'Linguagem principal para desenvolvimento web front-end e back-end.' },
-    { name: 'Python', desc: 'Linguagem versátil para automação, scripts e análise de dados.' },
-    { name: 'React Native', desc: 'Framework para construir apps móveis nativos com React.' },
+  const skills = [
+    { name: 'React', desc: 'Construção de interfaces web modernas.' },
+    { name: 'Node.js', desc: 'Criação de APIs REST.' },
+    { name: 'SQL Server', desc: 'Modelagem e otimização de banco de dados.' },
+    { name: 'Python', desc: 'Automação e scripts.' },
+    { name: 'React Native', desc: 'Aplicações móveis multiplataforma.' },
+    { name: 'JavaScript', desc: 'Linguagem principal para web.' },
+    { name: 'T-SQL', desc: 'Procedures e consultas avançadas.' },
+    { name: 'Git', desc: 'Versionamento de código.' },
   ];
 
-  const softSkills = [
-    { name: 'Resolução de Problemas', desc: 'Abordagem analítica para identificar e corrigir gargalos.' },
-    { name: 'Análise Crítica', desc: 'Avaliar soluções e escolher a mais eficiente e segura.' },
-    { name: 'Comunicação', desc: 'Clareza ao documentar e explicar decisões técnicas.' },
-    { name: 'Trabalho em Equipe', desc: 'Colaboração com times multidisciplinares.' },
-    { name: 'Adaptabilidade', desc: 'Aprender novas tecnologias conforme necessário.' },
-    { name: 'Atenção', desc: 'Detalhismo em queries e processos críticos.' },
-  ];
-
-  const businessSkills = [
-    { name: 'Fluxo de Caixa', desc: 'Conhecimento de entradas/saídas e projeções financeiras.' },
-    { name: 'Tributação NF-e', desc: 'Entendimento de regras fiscais e integração de notas fiscais eletrônicas.' },
-    { name: 'ERP', desc: 'Familiaridade com processos e módulos de ERP.' },
-    { name: 'Controladoria', desc: 'Análises para suporte à tomada de decisão financeira.' },
-    { name: 'SQL Avançado', desc: 'Tuning, índices, planos de execução e troubleshooting.' },
-  ];
-
-  const languages = [
-    { name: '🇧🇷 Português', desc: 'Nativo' },
-    { name: '🇬🇧 Inglês Avançado', desc: 'Leitura técnica e comunicação profissional.' },
-  ];
-
-  const openSkill = (skill) => { setSelectedSkill(skill); setModalVisible(true); };
+  const openSkill = (skill) => {
+    setSelected(skill);
+    setModalVisible(true);
+  };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>Habilidades</Text>
-        <View style={styles.sectionLine}></View>
-      </View>
-      
-      {/* Technical Skills */}
-      <View style={styles.skillSection}>
-        <View style={styles.skillCategoryHeader}>
-          <Ionicons name="code" size={20} color={colors.primary} />
-          <Text style={styles.skillCategoryTitle}>Tecnologias</Text>
-        </View>
-        <View style={styles.skillsGrid}>
-          {techSkills.map(skill => (
-            <Pressable key={skill.name} onPress={() => openSkill(skill)} style={({pressed})=>[styles.skillTag, styles.techSkillTag, pressed && styles.skillPressed]}>
-              <Text style={styles.skillTagText}>{skill.name}</Text>
-            </Pressable>
-          ))}
-        </View>
+    <ScrollView style={styles.container}>
+      <SectionTitle title="Skills" />
+
+      <View style={styles.skillsGrid}>
+        {skills.map((skill) => (
+          <Pressable
+            key={skill.name}
+            style={styles.skill}
+            onPress={() => openSkill(skill)}
+          >
+            <Text style={styles.skillText}>{skill.name}</Text>
+          </Pressable>
+        ))}
       </View>
 
-      {/* Soft Skills */}
-      <View style={styles.skillSection}>
-        <View style={styles.skillCategoryHeader}>
-          <Ionicons name="people" size={20} color={colors.accent} />
-          <Text style={styles.skillCategoryTitle}>Competências</Text>
-        </View>
-        <View style={styles.skillsGrid}>
-          {softSkills.map(skill => (
-            <Pressable key={skill.name} onPress={() => openSkill(skill)} style={({pressed})=>[styles.skillTag, styles.softSkillTag, pressed && styles.skillPressed]}>
-              <Text style={[styles.skillTagText, { color: colors.accent }]}>{skill.name}</Text>
-            </Pressable>
-          ))}
-        </View>
-      </View>
+      <Footer />
 
-      {/* Business Knowledge */}
-      <View style={styles.skillSection}>
-        <View style={styles.skillCategoryHeader}>
-          <Ionicons name="analytics" size={20} color={colors.primary} />
-          <Text style={styles.skillCategoryTitle}>Negócios</Text>
-        </View>
-        <View style={styles.skillsGrid}>
-          {businessSkills.map(skill => (
-            <Pressable key={skill.name} onPress={() => openSkill(skill)} style={({pressed})=>[styles.skillTag, styles.businessSkillTag, pressed && styles.skillPressed]}>
-              <Text style={[styles.skillTagText, { color: colors.primary }]}>{skill.name}</Text>
-            </Pressable>
-          ))}
-        </View>
-      </View>
-
-      {/* Languages */}
-      <View style={styles.skillSection}>
-        <View style={styles.skillCategoryHeader}>
-          <Ionicons name="globe" size={20} color={colors.accent} />
-          <Text style={styles.skillCategoryTitle}>Idiomas</Text>
-        </View>
-        <View style={styles.skillsGrid}>
-          {languages.map(lang => (
-            <Pressable key={lang.name} onPress={() => openSkill(lang)} style={({pressed})=>[styles.skillTag, styles.langSkillTag, pressed && styles.skillPressed]}>
-              <Text style={[styles.skillTagText, { color: colors.textPrimary }]}>{lang.name}</Text>
-            </Pressable>
-          ))}
-        </View>
-      </View>
-
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>© 2026 Thiago Henrique</Text>
-          <TouchableOpacity style={styles.contactButton} onPress={() => Linking.openURL('mailto:thiago@example.com')}>
-            <Text style={styles.contactButtonText}>Contato</Text>
-          </TouchableOpacity>
-        </View>
-
-        <Modal visible={modalVisible} transparent animationType="slide">
-          <View style={styles.modalOverlay}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>{selectedSkill?.name}</Text>
-              <Text style={styles.modalBody}>{selectedSkill?.desc}</Text>
-              <TouchableOpacity style={styles.modalCloseButton} onPress={() => setModalVisible(false)}>
-                <Text style={styles.modalCloseText}>Fechar</Text>
-              </TouchableOpacity>
-            </View>
+      <Modal visible={modalVisible} transparent animationType="slide">
+        <View style={styles.modalBg}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalTitle}>{selected?.name}</Text>
+            <Text style={styles.modalText}>{selected?.desc}</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.buttonText}>Fechar</Text>
+            </TouchableOpacity>
           </View>
-        </Modal>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
 
-// ========== NAVIGATION ==========
+// ================= COMPONENTES AUXILIARES =================
+const SectionTitle = ({ title }) => {
+  const styles = useStyles();
+  return (
+    <View style={{ padding: 20 }}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      <View style={styles.line} />
+    </View>
+  );
+};
+
+const ExperienceCard = ({ title, role, period, bullets }) => {
+  const styles = useStyles();
+  return (
+    <View style={styles.card}>
+      <Text style={styles.cardTitle}>{title}</Text>
+      <Text style={styles.role}>{role}</Text>
+      <Text style={styles.period}>{period}</Text>
+      {bullets.map((b, i) => (
+        <Text key={i} style={styles.text}>• {b}</Text>
+      ))}
+    </View>
+  );
+};
+
+const Info = ({ icon, title, text }) => {
+  const styles = useStyles();
+  return (
+    <View style={{ flexDirection: 'row', marginBottom: 15 }}>
+      <Ionicons name={icon} size={20} color={colors.primary} />
+      <View style={{ marginLeft: 10 }}>
+        <Text style={{ color: colors.textPrimary, fontWeight: '700' }}>
+          {title}
+        </Text>
+        <Text style={{ color: colors.textSecondary }}>{text}</Text>
+      </View>
+    </View>
+  );
+};
+
+const Footer = () => {
+  const styles = useStyles();
+  return (
+    <View style={styles.footer}>
+      <Text style={styles.footerText}>© 2026 Guilherme Piva</Text>
+      <TouchableOpacity
+        style={styles.contact}
+        onPress={() => Linking.openURL('mailto:guilherme@example.com')}
+      >
+        <Text style={{ color: '#fff' }}>Contato</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+// ================= NAVEGAÇÃO =================
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={({ route }) => ({
+        screenOptions={{
           headerShown: false,
-          tabBarStyle: {
-            backgroundColor: colors.bg,
-            borderTopWidth: 2,
-            borderTopColor: 'rgba(115, 103, 240, 0.1)',
-            height: 70,
-            paddingBottom: 12,
-            paddingTop: 12,
-            elevation: 15,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: -3 },
-            shadowOpacity: 0.2,
-            shadowRadius: 8,
-          },
+          tabBarStyle: { backgroundColor: colors.bg },
           tabBarActiveTintColor: colors.primary,
-          tabBarInactiveTintColor: colors.textSecondary,
-          tabBarLabelStyle: {
-            fontSize: 11,
-            fontWeight: '700',
-            marginTop: 6,
-            letterSpacing: 0.3,
-          },
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
-            if (route.name === 'Home') iconName = 'home-sharp';
-            else if (route.name === 'About') iconName = 'person';
-            else if (route.name === 'Experience') iconName = 'briefcase';
-            else if (route.name === 'Skills') iconName = 'star';
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
+        }}
       >
-        <Tab.Screen 
-          name="Home" 
-          component={Home} 
-          options={{ 
-            title: 'Início',
-            tabBarLabel: 'Início',
-          }} 
-        />
-        <Tab.Screen 
-          name="About" 
-          component={About} 
-          options={{ 
-            title: 'Sobre',
-            tabBarLabel: 'Sobre',
-          }} 
-        />
-        <Tab.Screen 
-          name="Experience" 
-          component={Experience} 
-          options={{ 
-            title: 'Experiência',
-            tabBarLabel: 'Exp.',
-          }} 
-        />
-        <Tab.Screen 
-          name="Skills" 
-          component={Skills} 
-          options={{ 
-            title: 'Skills',
-            tabBarLabel: 'Skills',
-          }} 
-        />
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="About" component={About} />
+        <Tab.Screen name="Experience" component={Experience} />
+        <Tab.Screen name="Skills" component={Skills} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
 
-// ========== ESTILOS ==========
-
+// ================= ESTILOS =================
 const useStyles = () => {
-  const { width } = useWindowDimensions();
-  const isWide = width >= 900;
-  const isTablet = width >= 600;
-  const contentMaxWidth = isWide ? 1000 : undefined;
-  const horizontalPadding = isWide ? 40 : 20;
-  const heroImageSize = isWide ? 240 : isTablet ? 200 : 160;
-  const nameFontSize = isWide ? 60 : isTablet ? 48 : 38;
-  const sectionTitleSize = isWide ? 36 : 30;
-  const statNumberSize = isWide ? 28 : 22;
-
   return StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: colors.bg,
-    },
-    scrollContent: {
-      paddingBottom: 30,
-    },
-
-    // ===== HERO SECTION =====
-    heroSection: {
-      minHeight: isWide ? 760 : isTablet ? 680 : 600,
-    },
-    heroGradient: {
-      flex: 1,
-      paddingTop: 40,
-      paddingBottom: 40,
-      paddingHorizontal: horizontalPadding,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.bg,
-      borderBottomWidth: 1,
-      borderBottomColor: 'rgba(115, 103, 240, 0.2)',
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    heroContent: {
-      alignItems: 'center',
-      width: '100%',
-    },
-    welcomeText: {
-      fontSize: 16,
-      color: colors.accent,
-      fontWeight: '600',
-      marginBottom: 16,
-      letterSpacing: 0.5,
-    },
-    nameText: {
-      fontSize: nameFontSize,
-      fontWeight: '900',
-      color: colors.textPrimary,
-      marginBottom: 12,
-      letterSpacing: -1,
-      textAlign: 'center',
-    },
-    professionText: {
-      fontSize: isWide ? 18 : 16,
-      fontWeight: '600',
-      color: colors.primary,
-      marginBottom: 40,
-      textAlign: 'center',
-      letterSpacing: 0.3,
-    },
-    profileContainer: {
-      marginBottom: 40,
-      shadowColor: colors.primary,
-      shadowOffset: { width: 0, height: 10 },
-      shadowOpacity: 0.3,
-      shadowRadius: 20,
-      elevation: 10,
-    },
-    heroImage: {
-      width: heroImageSize,
-      height: heroImageSize,
-      borderRadius: heroImageSize / 2,
+    container: { flex: 1, backgroundColor: colors.bg },
+    hero: { alignItems: 'center', padding: 30 },
+    name: { fontSize: 36, fontWeight: '900', color: colors.textPrimary },
+    subtitle: { color: colors.primary, marginBottom: 20 },
+    avatar: {
+      width: 150,
+      height: 150,
+      borderRadius: 75,
       borderWidth: 3,
       borderColor: colors.primary,
-      backgroundColor: colors.secondary,
-    },
-
-    // Stats
-    statsContainer: {
-      flexDirection: isTablet ? 'row' : 'column',
-      justifyContent: 'space-around',
-      width: '100%',
-      backgroundColor: 'rgba(115, 103, 240, 0.1)',
-      borderRadius: 12,
-      paddingVertical: 24,
-      paddingHorizontal: isTablet ? 0 : 16,
-      borderWidth: 1,
-      borderColor: 'rgba(115, 103, 240, 0.2)',
-      rowGap: 12,
-    },
-    statBox: {
-      alignItems: 'center',
-      flex: 1,
-      marginBottom: isTablet ? 0 : 6,
-    },
-    statNumber: {
-      fontSize: statNumberSize,
-      fontWeight: '900',
-      color: colors.primary,
-      marginBottom: 4,
-    },
-    statLabel: {
-      fontSize: 11,
-      color: colors.textSecondary,
-      fontWeight: '600',
-      textAlign: 'center',
-    },
-
-    // CTA
-    ctaSection: {
-      paddingHorizontal: horizontalPadding,
-      paddingVertical: 24,
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    ctaButton: {
-      backgroundColor: colors.primary,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingVertical: 16,
-      borderRadius: 12,
-      shadowColor: colors.primary,
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.4,
-      shadowRadius: 12,
-      elevation: 8,
-    },
-    ctaButtonText: {
-      color: '#FFFFFF',
-      fontSize: 16,
-      fontWeight: '700',
-      marginLeft: 10,
-      letterSpacing: 0.5,
-    },
-
-    // ===== QUOTE SECTION =====
-    quoteSection: {
-      marginHorizontal: horizontalPadding,
-      marginVertical: 40,
-      paddingVertical: 32,
-      paddingHorizontal: 24,
-      backgroundColor: 'rgba(79, 70, 229, 0.1)',
-      borderRadius: 16,
-      borderWidth: 1,
-      borderColor: 'rgba(79, 70, 229, 0.2)',
-      alignItems: 'center',
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    quoteIcon: {
-      fontSize: 40,
-      marginBottom: 16,
-    },
-    quoteText: {
-      fontSize: 15,
-      fontStyle: 'italic',
-      color: colors.textPrimary,
-      lineHeight: 26,
-      marginBottom: 16,
-      fontWeight: '500',
-      textAlign: 'center',
-    },
-    quoteAuthor: {
-      fontSize: 12,
-      color: colors.textSecondary,
-      fontWeight: '600',
-      letterSpacing: 0.5,
-    },
-
-    // ===== SECTION HEADER =====
-    sectionHeader: {
-      paddingHorizontal: horizontalPadding,
-      paddingTop: 40,
-      paddingBottom: 24,
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    sectionTitle: {
-      fontSize: sectionTitleSize,
-      fontWeight: '800',
-      color: colors.textPrimary,
-      letterSpacing: -1,
-      marginBottom: 12,
-    },
-    sectionLine: {
-      height: 4,
-      width: 60,
-      backgroundColor: colors.primary,
-      borderRadius: 2,
-    },
-
-    // ===== ABOUT SECTION =====
-    aboutCard: {
-      marginHorizontal: horizontalPadding,
-      marginBottom: 40,
-      backgroundColor: colors.secondary,
-      borderRadius: 16,
-      overflow: 'hidden',
-      borderWidth: 1,
-      borderColor: 'rgba(115, 103, 240, 0.2)',
-      flexDirection: isWide ? 'row' : 'column',
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    aboutImage: {
-      width: isWide ? 360 : '100%',
-      height: isWide ? 360 : isTablet ? 360 : 420,
-      backgroundColor: 'rgba(115, 103, 240, 0.1)',
-    },
-    aboutContent: {
-      padding: 24,
-      flex: 1,
-    },
-    bodyText: {
-      fontSize: 15,
-      lineHeight: 26,
-      color: colors.textSecondary,
-      marginBottom: 24,
-      textAlign: 'justify',
-    },
-    infoCard: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      marginBottom: 20,
-      paddingHorizontal: 16,
-      paddingVertical: 16,
-      backgroundColor: 'rgba(79, 70, 229, 0.05)',
-      borderRadius: 12,
-      borderLeftWidth: 4,
-      borderLeftColor: colors.primary,
-    },
-    infoText: {
-      flex: 1,
-      marginLeft: 16,
-    },
-    infoTitle: {
-      fontSize: 14,
-      fontWeight: '700',
-      color: colors.textPrimary,
-      marginBottom: 4,
-    },
-    infoSubtitle: {
-      fontSize: 13,
-      color: colors.textSecondary,
-      fontWeight: '500',
-    },
-
-    // ===== EXPERIENCE SECTION =====
-    experienceCard: {
-      marginHorizontal: horizontalPadding,
-      marginBottom: 20,
-      backgroundColor: colors.secondary,
-      borderRadius: 16,
-      paddingHorizontal: 24,
-      paddingVertical: 24,
-      borderWidth: 1,
-      borderColor: 'rgba(115, 103, 240, 0.2)',
-      shadowColor: colors.primary,
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.1,
-      shadowRadius: 8,
-      elevation: 3,
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    cardBadgeContainer: {
-      marginBottom: 16,
-    },
-    activeBadge: {
-      alignSelf: 'flex-start',
-      backgroundColor: colors.primary,
-      paddingHorizontal: 12,
-      paddingVertical: 6,
-      borderRadius: 6,
-    },
-    activeBadgeText: {
-      color: '#FFFFFF',
-      fontSize: 10,
-      fontWeight: '700',
-      textTransform: 'uppercase',
-      letterSpacing: 0.5,
-    },
-    cardContent: {
-      width: '100%',
-    },
-    cardTitle: {
-      fontSize: 20,
-      fontWeight: '800',
-      color: colors.textPrimary,
-      marginBottom: 6,
-      letterSpacing: -0.5,
-    },
-    cardRole: {
-      fontSize: 14,
-      fontWeight: '600',
-      color: colors.primary,
-      marginBottom: 12,
-    },
-    periodText: {
-      fontSize: 12,
-      color: colors.textSecondary,
-      fontStyle: 'italic',
-      marginBottom: 12,
-    },
-    divider: {
-      height: 1,
-      backgroundColor: 'rgba(115, 103, 240, 0.1)',
-      marginVertical: 16,
-    },
-    bulletContainer: {
-      gap: 8,
-    },
-    bulletPoint: {
-      fontSize: 14,
-      color: colors.textSecondary,
-      lineHeight: 22,
-      fontWeight: '500',
-    },
-
-    // ===== SKILLS SECTION =====
-    skillSection: {
-      marginHorizontal: horizontalPadding,
-      marginBottom: 40,
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    skillCategoryHeader: {
-      flexDirection: 'row',
-      alignItems: 'center',
       marginBottom: 20,
     },
-    skillCategoryTitle: {
-      fontSize: 16,
-      fontWeight: '700',
-      color: colors.textPrimary,
-      marginLeft: 10,
-      textTransform: 'uppercase',
-      letterSpacing: 0.5,
-    },
-    skillsGrid: {
+    stats: { flexDirection: 'row', gap: 30, marginBottom: 20 },
+    statNumber: { color: colors.primary, fontWeight: '900', fontSize: 20 },
+    statLabel: { color: colors.textSecondary, fontSize: 12 },
+    button: {
       flexDirection: 'row',
-      flexWrap: 'wrap',
-      gap: 8,
+      alignItems: 'center',
+      backgroundColor: colors.primary,
+      padding: 12,
+      borderRadius: 10,
+      marginTop: 10,
     },
-    skillTag: {
-      paddingHorizontal: 14,
-      paddingVertical: 10,
+    buttonText: { color: '#fff', marginLeft: 8 },
+    card: {
+      backgroundColor: colors.secondary,
+      margin: 20,
+      padding: 20,
+      borderRadius: 12,
+    },
+    text: { color: colors.textSecondary, marginBottom: 8 },
+    cardTitle: { color: colors.textPrimary, fontWeight: '800', fontSize: 18 },
+    role: { color: colors.primary },
+    period: { color: colors.textSecondary, marginBottom: 10 },
+    sectionTitle: { fontSize: 26, fontWeight: '800', color: colors.textPrimary },
+    line: { width: 60, height: 4, backgroundColor: colors.primary, marginTop: 6 },
+    skillsGrid: { flexDirection: 'row', flexWrap: 'wrap', padding: 20, gap: 10 },
+    skill: {
+      padding: 10,
+      borderWidth: 1,
+      borderColor: colors.primary,
       borderRadius: 8,
-      borderWidth: 1.5,
     },
-    techSkillTag: {
-      borderColor: colors.primary,
-      backgroundColor: 'rgba(115, 103, 240, 0.1)',
-    },
-    softSkillTag: {
-      borderColor: colors.accent,
-      backgroundColor: 'rgba(79, 172, 254, 0.1)',
-    },
-    businessSkillTag: {
-      borderColor: colors.primary,
-      backgroundColor: 'rgba(115, 103, 240, 0.08)',
-    },
-    langSkillTag: {
-      borderColor: 'rgba(209, 213, 219, 0.3)',
-      backgroundColor: 'rgba(209, 213, 219, 0.05)',
-    },
-    skillTagText: {
-      fontSize: 12,
-      fontWeight: '600',
-      textTransform: 'uppercase',
-      letterSpacing: 0.4,
-      color: colors.primary,
-    },
-
-    // ===== FOOTER =====
-    footer: {
-      marginHorizontal: horizontalPadding,
-      marginTop: 20,
-      paddingTop: 24,
-      paddingBottom: 24,
-      borderTopWidth: 1,
-      borderTopColor: 'rgba(115, 103, 240, 0.1)',
-      alignItems: 'center',
-      width: '100%',
-      maxWidth: contentMaxWidth,
-      alignSelf: 'center',
-    },
-    footerText: {
-      fontSize: 12,
-      fontWeight: '600',
-      color: colors.textSecondary,
-      letterSpacing: 0.3,
-    },
-    contactButton: {
-      marginTop: 8,
+    skillText: { color: colors.primary },
+    footer: { alignItems: 'center', padding: 20 },
+    footerText: { color: colors.textSecondary },
+    contact: {
+      marginTop: 10,
       backgroundColor: colors.accent,
-      paddingHorizontal: 14,
-      paddingVertical: 8,
+      padding: 8,
       borderRadius: 8,
-      shadowColor: colors.accent,
-      shadowOffset: { width: 0, height: 6 },
-      shadowOpacity: 0.15,
-      shadowRadius: 8,
-      elevation: 4,
     },
-    contactButtonText: {
-      color: '#fff',
-      fontWeight: '700',
-      fontSize: 13,
-    },
-    modalOverlay: {
+    modalBg: {
       flex: 1,
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: 'rgba(0,0,0,0.6)',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: 20,
     },
-    modalContent: {
-      width: '100%',
-      maxWidth: 720,
+    modalBox: {
       backgroundColor: colors.secondary,
       padding: 20,
       borderRadius: 12,
-      borderWidth: 1,
-      borderColor: 'rgba(115, 103, 240, 0.15)',
+      width: '80%',
     },
     modalTitle: {
       fontSize: 18,
       fontWeight: '800',
       color: colors.textPrimary,
-      marginBottom: 8,
+      marginBottom: 10,
     },
-    modalBody: {
-      fontSize: 14,
-      color: colors.textSecondary,
-      lineHeight: 20,
-      marginBottom: 16,
-    },
-    modalCloseButton: {
-      alignSelf: 'flex-end',
-      backgroundColor: colors.primary,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      borderRadius: 8,
-    },
-    modalCloseText: {
-      color: '#fff',
-      fontWeight: '700',
-    },
-    skillPressed: {
-      opacity: 0.8,
-      transform: [{ scale: 0.98 }],
-    },
+    modalText: { color: colors.textSecondary, marginBottom: 15 },
   });
 };
